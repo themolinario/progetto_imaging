@@ -1,9 +1,10 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {gapi} from "gapi-script";
 import {LoginButton} from "../components/LoginButton.tsx";
-import {AppBar, Box, Container, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, Container, TextField, Toolbar, Typography} from "@mui/material";
 
 export function SignInPage () {
+    const [medico, setMedico] = useState(false);
     const clientId = "673042186693-2m5j2elqlhnukhflpjf4871goq384cb9.apps.googleusercontent.com";
 
     useEffect(() => {
@@ -36,7 +37,11 @@ export function SignInPage () {
                         <h3 style={{ fontFamily: "sans-serif"}}>Benvenuto su CyberCare!</h3>
                         <LoginButton />
                     </div>
-
+                    <p>Sei un medico?</p>
+                    <Button onClick={() => setMedico(true)}>Effettua l'accesso come medico</Button>
+                    {medico && <TextField label="username"/>}
+                    {medico && <TextField label="password" type="password"/>}
+                    {medico && <Button>Login</Button>}
                 </div>
 
             </Container>

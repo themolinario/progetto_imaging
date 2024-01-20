@@ -45,7 +45,7 @@ parser.on('data', async (data) => {
         const type = data.split(' : ')[0];
         const value = data.split(' : ')[1];
         if (value) {
-            await insert({type, value, source: 'Bari'});
+            await insert({type, value});
         }
     }
 });
