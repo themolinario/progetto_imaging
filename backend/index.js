@@ -26,8 +26,8 @@ const collection = database.collection('data');
 
 const insert = async (data) => {
     try {
-        await client.db('test').collection('data').insertOne({type: data.type, value: data.value, source: data.source, date: new Date(Date.now())});
-        console.log('added ' + data.type.cyan + ': ' + data.value);
+        await client.db('test').collection('data').insertOne({value: data});
+        console.log('added ' + data.cyan);
     } catch (e) {
         console.log(e);
     }
@@ -42,11 +42,8 @@ port.on("open", () => {
 });
 parser.on('data', async (data) => {
     if (data && typeof data === 'string') {
-        const type = data.split(' : ')[0];
-        const value = data.split(' : ')[1];
-        if (value) {
-            await insert({type, value});
-        }
+            await insert(data);
+
     }
 });
 
@@ -55,7 +52,7 @@ app.use(cors());
 
 app.get('/data', async (req, res) => {
     try {
-        const cursor = await collection.find({}).sort({date: -1}).limit(1);
+        const cursor = await collection.find({}).sort({date: 1}).limit(10);
         let array = []
         for await (const doc of cursor){
             array = [...array, doc];
