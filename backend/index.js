@@ -32,7 +32,7 @@ const insert = async (data) => {
         console.log(e);
     }
 }
-
+/*
 const port= new SerialPort({path: 'COM3', baudRate: 9600});
 const parser = new ReadlineParser();
 port.pipe(parser);
@@ -46,6 +46,7 @@ parser.on('data', async (data) => {
 
     }
 });
+ */
 
 const app = new express();
 app.use(cors());
